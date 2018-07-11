@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <link type="text/css" rel="stylesheet" href="timer.css">
+    </head>
+<body onload="cdreset()">
+
+<div id="counter">
+        <span id="minutes"></span> 
+        <span> : </span>
+        <span id="timespan"></span>
+    </div>
+        
+        <div id="commandcenter">
+        <div class="btn-group" role="group">
+        <button class="btn btn-primary" id="Start" type="button" value="Start" onclick="countdown()">Start</button>
+        <button class="btn btn-primary" id="Stop" type="button" value="Stop" onclick="cdpause()">Pause</button>
+        <button class="btn btn-primary" id="Reset" type="button" value="Reset" onclick="cdreset()">Reset</button>
+        </div>
+        </div>
+
+        <div id="controltime">
+        <button class="btn btn-success" id="minuteplus" type="button" value="minuteplus" onclick="minutePlus()">+ 1 Minute</button>
+        <button class="btn btn-success" id="secondplus" type="button" value="secondplus" onclick="secondPlus()">+ 1 Second</button>
+        </div>
+
+        <div id="controltimeminus">
+            <button class="btn btn-danger" id="minuteminus" type="button" onclick="minuteMinus()">- 1 Minute</button>
+            <button class="btn btn-danger" id="secondminus" type="button" onclick="secondMinus()">- 1 Second</button>
+        </div>
+
+<script>
+    
+        var COUNT = '00';
+        var countmin = 25;
+        var t, count;
+        var audio = new Audio("ping.mp3");
+
+
+//trying to create a button that increments minute by 1
+
+        function minutePlus() {
+            newcountmin = document.getElementById('minutes').innerHTML
+            newcountmin++
+            console.log(newcountmin)
+            document.getElementById('minutes').innerHTML = newcountmin
+        }
+
+        function secondPlus() {
+            newcountsec = document.getElementById('timespan').innerHTML
+            newcountsec++
+            if (newcountsec < 10) {
+                newcountsec = '0' + newcountsec.toString()
+            }
+            if (newcountsec == 60) {
+                newcountmin += 1
+                newcountsec = '00'
+            }
+            document.getElementById('timespan').innerHTML = newcountsec
+        }
+
+        function secondMinus() {
+            newcountsec = document.getElementById('timespan').innerHTML
+            newcountsec--
+                if (newcountsec == -1) {
+                    newcountsec = 59
+                }
+            document.getElementById('timespan').innerHTML = newcountsec
+        }
+
+        function minuteMinus() {
+            newcountmin = document.getElementById('minutes').innerHTML
+            newcountmin--
+            document.getElementById('minutes').innerHTML = newcountmin
+        }
+        
+        function cddisplay() {
+            // displays time in span
+            document.getElementById('timespan').innerHTML = newcountsec;
+            document.getElementById('minutes').innerHTML = newcountmin;
+        };
+
+        
+        
+        function countdown() {
+            // starts countdown
+            document.getElementById('Stop').disabled = false
+            document.getElementById('Start').disabled = true
+            cddisplay();
+            
+            if (newcountsec == '00') {
+               newcountmin--;
+               newcountsec = 59;
+               countdown();
+            if (newcountmin == -1) {
+                audio.play()
+                cdreset()
+                document.getElementById("Start").disabled = true
+                document.getElementById('Stop').disabled = true
+                console.log(min)
+                console.log(count)
+            }
+            } else {
+                newcountsec--;
+                t = setTimeout("countdown()", 1000);
+            }
+        };
+
+//trying to keep numbers at zero after the ping goes off and the timer is done
+        // function zero() {
+        //     let count = 0
+        //     let min = 0
+        //     addEventListener("click", cdreset())
+        // }
+        
+        function cdpause() {
+            // pauses countdown
+            clearTimeout(t);
+            document.getElementById("Stop").disabled = true
+            document.getElementById("Start").disabled = false
+        };
+        
+        function cdreset() {
+            // resets countdown
+            cdpause();
+            newcountsec = COUNT;
+            newcountmin = countmin
+            document.getElementById("Start").disabled = false
+            document.getElementById("Stop").disabled = false
+            cddisplay();
+        };
+        
+    </script>
+    
+</body>
+
+<!-- </html> -->
+
+
+
+
+
+

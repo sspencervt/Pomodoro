@@ -1,0 +1,39 @@
+body {
+    background-image: url("tomato.jpg");
+    /* background-repeat: no-repeat; */
+    background-size: 500x;
+    background-position: center;
+}
+#button {
+    height: 100px;
+    width: 100px;
+}
+#commandcenter {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#controltime {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+#controltimeminus {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+span {
+    font-size: 300px;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+#counter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
